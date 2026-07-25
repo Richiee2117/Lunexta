@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand palette — near-black stage, glass surfaces, one bold accent */
+  --color-ink: #0a0a0b;
+  --color-ink-raised: #111113;
+  --color-surface: rgba(255, 255, 255, 0.045);
+  --color-surface-strong: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-foreground: #f5f5f7;
+  --color-foreground-dim: #9a9aa2;
+  --color-accent-a: #7c3aed;
+  --color-accent-b: #22d3ee;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-inter), "SF Pro Display",
+    "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --ease-organic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+body.cursor-driven {
+  cursor: none;
+}
+
+body.cursor-driven a,
+body.cursor-driven button {
+  cursor: none;
+}
+
+::selection {
+  background: var(--color-accent-a);
+  color: var(--color-foreground);
+}
+
+/* ambient glow — used behind hero/section stages, never the main event */
+.ambient-glow::before,
+.ambient-glow::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.25;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.ambient-glow::before {
+  width: 46vw;
+  height: 46vw;
+  left: -10vw;
+  top: 8%;
+  background: var(--color-accent-a);
+}
+
+.ambient-glow::after {
+  width: 38vw;
+  height: 38vw;
+  right: -8vw;
+  bottom: 4%;
+  background: var(--color-accent-b);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
