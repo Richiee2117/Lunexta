@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { EASE_ORGANIC } from "@/lib/motion-variants";
-
 type TextRevealProps = {
   text: string;
   className?: string;
@@ -23,14 +18,12 @@ export default function TextReveal({
     <Tag className={className}>
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
-          <motion.span
-            className="inline-block"
-            initial={{ y: "110%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 0.7, ease: EASE_ORGANIC, delay: delay + i * 0.05 }}
+          <span
+            className="text-reveal-word inline-block"
+            style={{ animationDelay: `${delay + i * 0.05}s` }}
           >
             {word}&nbsp;
-          </motion.span>
+          </span>
         </span>
       ))}
     </Tag>

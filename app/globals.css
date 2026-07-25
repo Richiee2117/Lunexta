@@ -72,6 +72,19 @@ body.cursor-driven button {
   background: var(--color-accent-b);
 }
 
+@keyframes text-reveal-word {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.text-reveal-word {
+  animation: text-reveal-word 0.7s var(--ease-organic) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
