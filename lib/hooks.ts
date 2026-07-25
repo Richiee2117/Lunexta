@@ -25,7 +25,3 @@ export function useIsTouchDevice() {
 export function useIsMobile(breakpoint = 768) {
   return useMediaQuery(`(max-width: ${breakpoint}px)`);
 }
-
-export function useHasFinePointer() {
-  return useMediaQuery("(pointer: fine)");
-}

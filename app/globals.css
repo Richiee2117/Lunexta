@@ -30,15 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-body.cursor-driven {
-  cursor: none;
-}
-
-body.cursor-driven a,
-body.cursor-driven button {
-  cursor: none;
-}
-
 ::selection {
   background: var(--color-accent-a);
   color: var(--color-foreground);

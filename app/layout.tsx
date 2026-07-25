@@ -5,7 +5,6 @@ import LanguageProvider from "@/components/providers/LanguageProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
-import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +33,6 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-ink text-foreground">
         <LanguageProvider>
-          <CustomCursor />
           <SmoothScroll>
             <Navbar />
             <main className="flex-1">
