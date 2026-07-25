@@ -104,8 +104,15 @@ const LunextaOrbMaterial = shaderMaterial(
       float mouseBump = smoothstep(0.9, 0.0, mouseDist) * uMouseInfluence;
       // A second, faster-oscillating noise layer that only kicks in during
       // the click pulse — reads as the surface convulsing/boiling rather
-      // than just growing a single smooth bump.
-      float churn = snoise(n * 4.0 - uTime * 1.4) * uClickPulse;
+      // than just growing a single smooth bump. uClickPulse is a uniform
+      // (same value for every vertex), so this branch is free on the GPU —
+      // skipping it avoids three extra snoise() evaluations per vertex
+      // (this function runs 3x per vertex for the normal reconstruction)
+      // during the vast majority of the time the orb is just idling.
+      float churn = 0.0;
+      if (uClickPulse > 0.001) {
+        churn = snoise(n * 4.0 - uTime * 1.4) * uClickPulse;
+      }
       return (baseNoise * 0.16 + mouseBump * 0.24 + uClickPulse * 0.35 + churn * 0.22) * uScrollIntensity;
     }
 
@@ -313,7 +320,7 @@ export default function LunextaOrb({
       }}
     >
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 4.6], fov: 42 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         frameloop={rendering && !paused ? "always" : "never"}
