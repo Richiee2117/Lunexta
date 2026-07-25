@@ -242,7 +242,7 @@ function OrbMesh({
 
   return (
     <mesh ref={meshRef} position={[0.5, 0, 0]}>
-      <sphereGeometry args={[1.4, 112, 112]} />
+      <sphereGeometry args={[1.4, 80, 80]} />
       <lunextaOrbMaterial ref={materialRef} />
     </mesh>
   );
@@ -322,7 +322,7 @@ export default function LunextaOrb({
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 4.6], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         frameloop={rendering && !paused ? "always" : "never"}
       >
         <OrbMesh

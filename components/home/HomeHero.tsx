@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useScroll,
   useTransform,
+  type MotionValue,
 } from "framer-motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -22,16 +23,23 @@ const LunextaOrb = dynamic(() => import("@/components/three/LunextaOrb"), {
   loading: () => null,
 });
 
-function StaticOrb({ onActivate }: { onActivate: () => void }) {
+function StaticOrb({
+  onActivate,
+  activationScale,
+}: {
+  onActivate: () => void;
+  activationScale: MotionValue<number>;
+}) {
   return (
     <motion.div
       className="absolute inset-0 flex items-center justify-center"
       data-cursor="button"
       onClick={onActivate}
       whileTap={{ scale: 0.94 }}
+      style={{ scale: activationScale }}
     >
       <div
-        className="h-[340px] w-[340px] rounded-full opacity-70 blur-2xl md:h-[440px] md:w-[440px]"
+        className="static-orb-drift h-[280px] w-[280px] rounded-full opacity-70 blur-2xl sm:h-[340px] sm:w-[340px] md:h-[440px] md:w-[440px]"
         style={{
           background:
             "radial-gradient(circle at 35% 30%, #7c3aed 0%, #22d3ee 45%, #0a0a0b 75%)",
@@ -100,7 +108,7 @@ export default function HomeHero() {
               paused={showcase}
             />
           ) : (
-            <StaticOrb onActivate={handleActivate} />
+            <StaticOrb onActivate={handleActivate} activationScale={activationScale} />
           )}
         </motion.div>
 
@@ -111,7 +119,11 @@ export default function HomeHero() {
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12">
+      <motion.div
+        animate={{ opacity: showcase ? 0 : 1, y: showcase ? -12 : 0 }}
+        transition={{ duration: 0.35, ease: EASE_ORGANIC }}
+        style={{ pointerEvents: showcase ? "none" : "auto" }}
+        className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -145,7 +157,7 @@ export default function HomeHero() {
         >
           <MagneticButton href="/contacto">{t.nav.cta}</MagneticButton>
         </motion.div>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {!showcase && (
@@ -154,7 +166,7 @@ export default function HomeHero() {
             animate={{ opacity: [0, 1, 1, 0.5, 1] }}
             exit={{ opacity: 0 }}
             transition={{ duration: 3, delay: 2, times: [0, 0.15, 0.6, 0.8, 1] }}
-            className="pointer-events-none absolute bottom-24 right-6 z-10 hidden text-xs font-medium uppercase tracking-[0.2em] text-foreground-dim/70 lg:block lg:right-12"
+            className="pointer-events-none absolute bottom-28 right-6 z-10 text-xs font-medium uppercase tracking-[0.2em] text-foreground-dim/70 sm:bottom-24 lg:right-12"
           >
             {t.home.hint}
           </motion.p>

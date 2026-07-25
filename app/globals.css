@@ -85,6 +85,20 @@ body.cursor-driven button {
   animation: text-reveal-word 0.7s var(--ease-organic) both;
 }
 
+@keyframes static-orb-drift {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.08) rotate(6deg);
+  }
+}
+
+.static-orb-drift {
+  animation: static-orb-drift 9s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
