@@ -322,7 +322,7 @@ export default function LunextaOrb({
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 4.6], fov: 42 }}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "default" }}
         frameloop={rendering && !paused ? "always" : "never"}
       >
         <OrbMesh
